@@ -10,18 +10,18 @@ import (
 func main() {
 	router := gin.Default()
 
-	router.GET("/validatecc/:number", getValidateCreditCard)
+	router.GET("/validate/cc/:number", getValidateCreditCard)
 
 	router.Run("localhost:8080")
 }
 
-func getValidateCreditCard(c *gin.Context) {
-	ccNumber := c.Param("number")
-	validCC := util.ValidateCreditCard(ccNumber)
+func getValidateCreditCard(ctx *gin.Context) {
+	ccNumber := ctx.Param("number")
+	validCC, classification := util.ValidateCreditCard(ccNumber)
 
 	if validCC {
-		c.JSON(http.StatusOK, gin.H{"Verdict": "VALID"})
+		ctx.JSON(http.StatusOK, gin.H{"Provider": classification, "Verdict": "VALID"})
 	} else {
-		c.JSON(http.StatusOK, gin.H{"Verdict": "INVALID"})
+		ctx.JSON(http.StatusOK, gin.H{"Provider": classification, "Verdict": "INVALID"})
 	}
 }
