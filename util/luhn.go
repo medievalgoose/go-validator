@@ -48,13 +48,13 @@ func ValidateCreditCard(number string) (bool, string) {
 	}
 
 	if totalNum%10 == 0 {
-		return true, ClassifyCreditCard(number)
+		return true, classifyCreditCard(number)
 	} else {
-		return false, ClassifyCreditCard(number)
+		return false, classifyCreditCard(number)
 	}
 }
 
-func ClassifyCreditCard(number string) string {
+func classifyCreditCard(number string) string {
 	visaCardExp := "\\b4\\d{15}\\b"
 
 	// Visa
