@@ -63,14 +63,11 @@ func getRot13Cipher(ctx *gin.Context) {
 	var eliminatedSpaceMessage string
 
 	for _, char := range message {
-		if string(char) != " " && strings.Contains(util.Charset, strings.ToLower(string(char))) {
+		if string(char) != " " {
 			eliminatedSpaceMessage += strings.ToLower(string(char))
 		}
 	}
 
-	// TODO: Make sure the omit the symbols from the message.
-
 	encodedMessage := util.Rot13Encode(eliminatedSpaceMessage)
-
 	ctx.JSON(http.StatusOK, gin.H{"Input": message, "Output": encodedMessage})
 }
